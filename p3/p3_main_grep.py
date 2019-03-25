@@ -61,7 +61,7 @@ def I_file(link_list):
             for link in link_list:
                 # link = str(link + '\n')
                 f.write(link + '\n')
-        except Exception,e:
+        except Exception as e:
             pass
 
 
@@ -77,33 +77,32 @@ def collect_inner_text(page_no):
                 res = requests.get(line.strip(' '))
                 result = re.findall(re_item, res.text)
                 # print line + ' =============> ' + result[0].replace('<br />','')
-                inner_list.append(result[1].replace('<br />','').replace('&nbsp;',''))
-            except Exception, e:
+                inner_list.append(result[1].replace('<br />',''))
+            except Exception as e:
                 pass
-    print '[+] page ' + str(page_no) + ' ->  loded'
+    print ('[+] page ' + str(page_no) + ' -> has loded')
     return inner_list
 
 # 将每个页面的主要文本内容写入文件
 # 维护一个容量为1页的列表
 # 一次处理1页
-def inner_in_file(inner_list, page_no):
-    file_name = str(page_no) + '.txt'
-    with open(file_name, "w") as f:
+def inner_in_file(inner_list):
+    with open("collext.txt", "w") as f:
         f.truncate()
         for item in inner_list:
-            f.write(item.encode('utf8') + '\n')
-    print '[+] page ' + str(page_no) +  ' -> has been written!'
+            f.write(str(item.encode('utf8')))
+    print ('[+] page ' +  ' -> has written!')
 
 
 
 
 # inner_in_file()
 
-indoor = gen_indoor(2)
+indoor = gen_indoor(3)
 link_list = collect_links(indoor)
 I_file(link_list)
-list2 = collect_inner_text(2)
-inner_in_file(list2,2)
+list2 = collect_inner_text(3)
+inner_in_file(list2)
 # for item in list2:
 #     print item
 
