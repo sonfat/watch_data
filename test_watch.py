@@ -5,16 +5,16 @@ import re
 
 
 
-re_item = r'''
-<!--  -->
-([\s\S]*?)
-'''
+re_item = r'</em>                                         <a href="(.*?)" onclick="atarget\(this\)" class="s xst">'
 
 
-res = requests.get("http://bbs.xbiao.com/871/771652.html")
+res = requests.get("http://bbs.xbiao.com/rolex/p400.html")
+print res.text
 req = re.findall(re_item, res.text)
-print req[1]
-#
+# print req
+for i in req:
+    print i
+    # #
 # with open('test.txt', 'r') as f:
 #     for line in f:
 #         try:
